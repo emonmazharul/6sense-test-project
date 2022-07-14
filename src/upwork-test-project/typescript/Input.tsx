@@ -40,8 +40,8 @@ const Input:React.FC<Props> =  ({
 
     if (type === "number") {
       const value = e.currentTarget.value;
-      if (Number(value) < 2) {
-        showErrorText(id, "Age must be greater than 1");
+      if (Number(value) < 1) {
+        showErrorText(id, "Age must be greater than 0");
       } else {
         showErrorText(id, "done");
       }
@@ -61,7 +61,7 @@ const Input:React.FC<Props> =  ({
 
     if (type === "number") {
       const value = e.currentTarget.value;
-      if (Number(value) < 2) {
+      if (Number(value) < 1) {
         showErrorText(id, "");
       } else {
         showErrorText(id, "done");

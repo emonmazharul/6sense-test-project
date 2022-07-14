@@ -32,8 +32,8 @@ function Input({
 
       if (type === "number") {
         const value = e.target.value;
-        if (Number(value) < 2) {
-          showErrorText(id, "Age must be greater than 1");
+        if (Number(value) < 1) {
+          showErrorText(id, "Age must be greater than 0");
         } else {
           showErrorText(id, "done");
         }
@@ -53,7 +53,7 @@ function Input({
 
       if (type === "number") {
         const value = e.target.value;
-        if (Number(value) < 2) {
+        if (Number(value) < 1) {
           showErrorText(id, "");
         } else {
           showErrorText(id, "done");
