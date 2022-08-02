@@ -22,7 +22,6 @@ const ContextParent:React.FC<{children:React.ReactNode}> = ({children}) => {
   
 
   useEffect(() => {
-    // loadUserDataWraper();
     loadUserData(setUserData)
     if(userData.isAuthenticated) {
       loadRemitanceData(post_remitance_history);
