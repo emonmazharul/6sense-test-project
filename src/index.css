@@ -12,42 +12,7 @@ code {
     monospace;
 }
 
-.main {
-  margin: 0 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1em;
-}
-
-.main > div {
-  width: 32%;
-}
-.main>div> * {
-  padding: 15px;
-
-}
-
-label {
-  color:rgb(27, 211, 122);
-  display: inline-block;
-  margin: 10px 0;
-}
-
-/* .two,.three label {
-  margin: 5px 0;
-  color: red;
-} */
-
-input[type="text"],input[type="email"],input[type="number"]   {
-  padding: 10px;
-}
-
-button:disabled {
-  cursor: not-allowed;
-}
-
-span {
-  display: inline-block;
-  margin: 5px 0;
+tr {
+  font-size: 15px;
+  text-align: center;
 }
