@@ -1,7 +1,6 @@
-import { type } from 'os';
 import React from 'react'
 import { NavigateFunction } from 'react-router-dom';
-import { contextDataInterface, LoginUser, RemitanceHistoryInterface, User, AlertType, SignUpUser } from "../types/type"
+import { contextDataInterface, LoginUser, RemitanceHistoryInterface, AlertType, SignUpUser } from "../types/type"
 
 export function formDataMaker(new_remitance_data:RemitanceHistoryInterface):FormData {
   const formData:FormData = new FormData();
@@ -70,7 +69,7 @@ export const loadRemitanceData = async (post_remitance_history:React.Dispatch<Re
 }
 
 
-export const loginHandler = async <LoginHandlerType>(
+export const loginHandler = async (
   credentials:LoginUser,
   setUserData:React.Dispatch<React.SetStateAction<contextDataInterface>>,
   setLoginResult:React.Dispatch<React.SetStateAction<{message:string;type:AlertType}>>,

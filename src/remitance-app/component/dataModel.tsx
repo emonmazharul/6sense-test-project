@@ -1,16 +1,13 @@
-import React,{useState,useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
-import {Row,Col,Table,Typography,Statistic,Button,Space} from 'antd'
-import {columnsTwoInterface,data} from './dataSource'
+import React,{useContext} from 'react';
+import {Row,Col,Table,Typography} from 'antd'
+import {columnsTwoInterface} from './dataSource'
 import DataContext from '../context/context';
 import { contextInterface } from '../types/type';
 import Navbar from './navigation';
-import { fontSize } from '@mui/system';
 
 const Title = Typography.Title;
 
 const DataModel:React.FC = () => {
-  const navigate = useNavigate();
   const {remitance_history,totalAmount:{originalAmount,currentAmount}}:contextInterface = useContext(DataContext);
   return <>
     <Navbar/>

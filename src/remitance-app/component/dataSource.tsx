@@ -1,4 +1,4 @@
-import {Button} from 'antd';
+import React from 'react'
 import type { ColumnsType } from 'antd/lib/table';
 import ModalOpener from './modal'
 import {RemitanceHistoryInterface} from '../types/type'

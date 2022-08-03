@@ -1,11 +1,10 @@
-import React,{useState,useContext}  from "react";
+import React from "react";
 import {Routes, Route, } from 'react-router-dom';
 import ContextParent from "../context/contextParent";
 import HomePage from "./home";
 import DataModel from "./dataModel";
-import ExampleForm from "./test";
+import ExampleForm from "../../upwork-test-project/test";
 import AddRmitanceHistory from "./addRemitanceHistory";
-import TestForm from "./formTest";
 import InvalidRoute from "./invalidRoute";
 
 const RouteContainer:React.FC = () => {
@@ -15,7 +14,6 @@ const RouteContainer:React.FC = () => {
       <Route path="/history" element={<DataModel/>}/>
       <Route path="/example" element={<ExampleForm/>}/>
       <Route path="/add_remitance" element={<AddRmitanceHistory/>}/>
-      <Route path="/test" element={<TestForm/>}/>
       <Route path="*" element={<InvalidRoute/>}/>
     </Routes>
   </>

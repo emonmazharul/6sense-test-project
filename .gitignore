@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+#/upwork-test-project
 /.pnp
 .pnp.js
 
