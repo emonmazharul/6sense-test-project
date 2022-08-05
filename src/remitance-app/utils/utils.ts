@@ -33,6 +33,8 @@ export const loadUserData = async (setUserData:React.Dispatch<React.SetStateActi
       headers : {
         'Accept': "application/json",
         "Content-Type": "application/json;charset=UTF-8",
+        'Access-Control-Allow-Origin' : 'https://api-remitance-app.herokuapp.com/',
+        'Access-Control-Allow-Credentials': 'true'
       }
     })
     if(!response.ok) {
@@ -56,7 +58,9 @@ export const loadRemitanceData = async (post_remitance_history:React.Dispatch<Re
       credentials:'include',
       headers : {
         'Accept': "application/json",
-        "Content-Type": "application/json;charset=UTF-8"
+        "Content-Type": "application/json;charset=UTF-8",
+        'Access-Control-Allow-Origin' : 'https://api-remitance-app.herokuapp.com/',
+        'Access-Control-Allow-Credentials': 'true'
       },
     })
     if(!response.ok) {
@@ -88,6 +92,8 @@ export const loginHandler = async (
       headers: {
         'Accept': "application/json",
         "Content-Type": "application/json;charset=UTF-8",
+        'Access-Control-Allow-Origin' : 'https://api-remitance-app.herokuapp.com/',
+        'Access-Control-Allow-Credentials': 'true'
       },
       body: JSON.stringify(credentials)
     });
