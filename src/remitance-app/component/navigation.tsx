@@ -8,7 +8,6 @@ const Navbar:React.FC = () =>  {
   
   const navigate = useNavigate();
   const {user,logoutHandler}:contextInterface = useContext(DataContext); 
-  
   // const homeRoute:string = user.fullname ? '/history' : '/';
   const username = user.fullname ? user.fullname : 'John Doe';
   const btnTexts:{btnOneText:string;btnTwoText:string} = user.fullname ? {btnOneText:'Logout', btnTwoText:'Add Remitance'} : {btnOneText:'Login',btnTwoText:'Home'};

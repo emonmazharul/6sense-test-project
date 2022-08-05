@@ -22,6 +22,7 @@ export interface SignUpUser extends LoginUser {
 
 export interface RemitanceHistoryInterface {
   key?:string;
+  pinNumber?:string;
   totalPound:number;
   totalTaka:number;
   exchangeRate:number;

@@ -63,7 +63,6 @@ const Signup:React.FC = () => {
       }
 
       <Form.Item
-        // wrapperCol={{offset: 16, span:8}}
       >
         <Button type="primary" htmlType="submit" loading={shouldButtonSpin}>
           Sign Up

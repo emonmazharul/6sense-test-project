@@ -2,10 +2,13 @@ import React from 'react'
 import { NavigateFunction } from 'react-router-dom';
 import { contextDataInterface, LoginUser, RemitanceHistoryInterface, AlertType, SignUpUser } from "../types/type"
 
+const url:string = "https://api-remitance-app.herokuapp.com";
+
+
 export function formDataMaker(new_remitance_data:RemitanceHistoryInterface):FormData {
   const formData:FormData = new FormData();
   formData.append('avatar', new_remitance_data.receiptImage[0].originFileObj);
-  const keys:Array<string> = ['totalPound','totalTaka','payingAgent','sendingDate','exchangeRate','govtIncentive'];
+  const keys:Array<string> = ['pinNumber','totalPound','totalTaka','payingAgent','sendingDate','exchangeRate','govtIncentive'];
   for(let i=0;i<keys.length;i++) {
     const key = keys[i] as keyof RemitanceHistoryInterface; 
     formData.append(`${keys[i]}`, new_remitance_data[key]);
@@ -25,14 +28,14 @@ export function numberConverter(credentials:RemitanceHistoryInterface) {
 
 export const loadUserData = async (setUserData:React.Dispatch<React.SetStateAction<contextDataInterface>>):Promise<void> => {
   try {
-    const response = await fetch('/user', {
+    const response = await fetch( url + '/user', {
       credentials:'include',
       headers : {
         'Accept': "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       }
     })
-    if(response.status === 401 ) {
+    if(!response.ok) {
       console.log('user is not loged in');
       return;
     }
@@ -49,15 +52,16 @@ export const loadUserData = async (setUserData:React.Dispatch<React.SetStateActi
 
 export const loadRemitanceData = async (post_remitance_history:React.Dispatch<React.SetStateAction<RemitanceHistoryInterface[]>>):Promise<void> => {
   try {
-    const response = await fetch('/remitance/all_histories', {
+    const response = await fetch( url + '/remitance/all_histories', {
       credentials:'include',
       headers : {
         'Accept': "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      }
+        "Content-Type": "application/json;charset=UTF-8"
+      },
     })
-    if(response.status === 401 ) {
-      console.log('You are not authorized and we cannot show the data');
+    if(!response.ok) {
+      const result:RemitanceHistoryInterface[] = await response.json();
+      post_remitance_history(result);
       return;
     }
     const result:RemitanceHistoryInterface[] = await response.json();
@@ -77,7 +81,7 @@ export const loginHandler = async (
 
 ):Promise<void> => {
   try {
-    const response = await fetch('/user/login', {
+    const response = await fetch( url + '/user/login', {
       method:'POST',
       credentials:'include',
       redirect:'follow',
@@ -87,7 +91,7 @@ export const loginHandler = async (
       },
       body: JSON.stringify(credentials)
     });
-    if(response.status === 401) {
+    if(!response.ok) {
       setUserData({
         isAuthenticated:false,
         user:{
@@ -109,11 +113,6 @@ export const loginHandler = async (
       ...result,
     }) );
     navigate('/history');
-    // setLoginResult(loginResult => ({
-    //   ...loginResult,
-    //   message:'Successfully Loged in.Redirecting....',
-    //   type:'success',
-    // }) )
   } catch (e) {
     console.log(e);
   }
@@ -127,26 +126,17 @@ export const signUpHandler = async (
     navigate:NavigateFunction
   ):Promise<void> => {
   try {
-    const response = await fetch('/user/signup', {
+    const response = await fetch( url + '/user/signup', {
       method:'POST',
-      // credentials:'include',
       redirect:'follow',
       headers: {
         'Accept': "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body: JSON.stringify(credentials)
+      body: JSON.stringify(credentials),
     });
 
-    if(response.status === 409) {
-      // setUserData({
-      //   isAuthenticated:false,
-      //   user:{
-      //     fullname:undefined,
-      //     email:undefined,
-      //     role:undefined,
-      //   }
-      // })
+    if(!response.ok) {
       const result:{message:string;type:AlertType}= await response.json();
       setSignUpResult(signUpResult => ({
         ...signUpResult,
@@ -160,11 +150,6 @@ export const signUpHandler = async (
       ...result,
     }) );
     navigate('/history');
-    // setSignUpResult(signUpResult => ({
-    //   ...signUpResult,
-    //   message:'Successfully signed up.Redirecting....',
-    //   type:'success',
-    // }) )
   } catch (e) {
     console.log(e);
   }
@@ -176,7 +161,7 @@ export const logoutHandler = async (
     navigate:NavigateFunction
 ):Promise<void> => {
   try {
-    await fetch('/user/logout', {
+    await fetch( url + '/user/logout', {
       method:'POST',
       redirect:'follow',
       headers: {
@@ -206,12 +191,12 @@ export const remitance_history_handler = async (
     setDataUploadError:React.Dispatch<React.SetStateAction<{message:string;type:AlertType}>>,
   ):Promise<void> => {
   try {
-    const response = await fetch('/remitance/history', {
+    const response = await fetch( url + '/remitance/history', {
       method:'POST',
       credentials:'include',
       body:formDataMaker(new_remitance_data)
     });
-    if(response.status === 401) {
+    if(!response.ok) {
       const errorResult:{message:string,type:AlertType} = await response.json();
       setDataUploadError(errorResult);
       return;

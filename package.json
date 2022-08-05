@@ -46,5 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://api-remitance-app.herokuapp.com"
+  "proxy":"http://localhost:8000"
 }

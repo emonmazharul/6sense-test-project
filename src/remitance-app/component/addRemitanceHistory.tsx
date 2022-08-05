@@ -8,12 +8,12 @@ import Navbar from './navigation'
 
 const {Title} = Typography;
 
-// const normFile:any = (e: any) => {
-//   if (Array.isArray(e)) {
-//     return e;
-//   }
-//   return e?.fileList;
-// };
+const normFile:any = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e.fileList ? e.fileList : '';
+};
 
 const AddRmitanceHistory:React.FC = () => {
   const [form] = Form.useForm();
@@ -61,9 +61,17 @@ const AddRmitanceHistory:React.FC = () => {
           onFinish={onFinishHandler}
         >
           <Form.Item 
+            label="Pin Number" 
+            name="pinNumber" 
+            rules={[{required:true,message:'You have to provide the pin number with a length of >= 5',min:5}]}
+          > 
+            <Input type='number'/>
+          </Form.Item>
+
+          <Form.Item 
             label="Total Pound" 
             name="totalPound" 
-            rules={[{required:true,message:'This field is mandatory'}]}
+            rules={[{required:true,message:'Pleae set a total pound'}]}
           > 
             <Input type='number'/>
           </Form.Item>
@@ -71,7 +79,7 @@ const AddRmitanceHistory:React.FC = () => {
           <Form.Item 
             label="Total Taka" 
             name="totalTaka" 
-            rules={[{required:true,message:'This field is mandatory'}]}
+            rules={[{required:true,message:'Pleae set a total taka'}]}
           > 
             <Input type='number'/>
           </Form.Item>
@@ -79,7 +87,7 @@ const AddRmitanceHistory:React.FC = () => {
           <Form.Item 
             label="Exchange Rate" 
             name="exchangeRate" 
-            rules={[{required:true,message:'This field is mandatory'}]}
+            rules={[{required:true,message:'There must be an exchange rate'}]}
           > 
             <Input type='number'/>
           </Form.Item>
@@ -88,7 +96,7 @@ const AddRmitanceHistory:React.FC = () => {
             label="Sending date"
             name="sendingDate"
             rules={[
-              {required:true, message:'Please give a proper sending date'},
+              {required:true, message:'Please set the valid sending date'},
               () => ({
                 validator(_, value) {
                   if (!value || value.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/) !== null) {
@@ -105,7 +113,7 @@ const AddRmitanceHistory:React.FC = () => {
           <Form.Item 
             label="Paying Agent" 
             name="payingAgent" 
-            rules={[{required:true,message:'This field is mandatory'}]}
+            rules={[{required:true,message:'The should be an paying agent'}]}
           > 
             <Input/>
           </Form.Item>
@@ -122,13 +130,12 @@ const AddRmitanceHistory:React.FC = () => {
             label="Upload receipt image"
             valuePropName="fileList"
             rules={[{required:true,message:'please select the receipt image'}]}
-            // getValueFromEvent={normFile}
+            getValueFromEvent={normFile}
             extra="upload an jpg or png file"
             
           >
             <Upload 
               name="logo" 
-              // listType="picture"
               customRequest={() => {
                 // console.log('do this');
               }} 
@@ -144,7 +151,6 @@ const AddRmitanceHistory:React.FC = () => {
           }
           
           <Form.Item
-            // wrapperCol={{offset: 16, span:8}}
           >
             <Button type="primary" htmlType="submit" loading={shouldButtonSpin}>
               Add Remitance
