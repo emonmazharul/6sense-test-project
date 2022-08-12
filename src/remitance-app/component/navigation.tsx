@@ -8,7 +8,6 @@ const Navbar:React.FC = () =>  {
   
   const navigate = useNavigate();
   const {user,logoutHandler}:contextInterface = useContext(DataContext); 
-  // const homeRoute:string = user.fullname ? '/history' : '/';
   const username = user.fullname ? user.fullname : 'John Doe';
   const btnTexts:{btnOneText:string;btnTwoText:string} = user.fullname ? {btnOneText:'Logout', btnTwoText:'Add Remitance'} : {btnOneText:'Login',btnTwoText:'Home'};
 
@@ -20,28 +19,44 @@ const Navbar:React.FC = () =>  {
     navigate('/');
   }
 
-  return  <Row style={{width:'100%',backgroundColor:'black', marginBottom:'15px'}}>
-    <Col span={20} style={{padding:'5px 0 5px 20px'}}>
-      <Button 
-        type='text' 
-        style={{color:'#fff',fontSize:'2rem'}} 
-        onClick={() => navigate(user.fullname ? '/history' : '/')}
-      >
-        Welcome {username}
-      </Button>
-    </Col>
-    <Col span={4} style={{padding:'20px 0'}}>
-        <Space>
-          <Button type='primary' onClick={buttonOnclickHandler}>{btnTexts.btnOneText}</Button>
+  return <>  
+      <div className='first_flex'>
+        <div>
           <Button 
-            type='primary'
-            onClick={() => navigate(user.fullname ? '/add_remitance' : '/')}
+            id='nav_headline'
+            type='text' 
+            style={{color:'#fff'}} 
+            onClick={() => navigate(user.fullname ? '/history' : '/')}
           >
-            {btnTexts.btnTwoText}
+            Welcome {username}
           </Button>
-        </Space>
-      </Col>
-  </Row>
+        </div>
+        <div>
+            <Button type='primary' size='large'  onClick={buttonOnclickHandler}>{btnTexts.btnOneText}</Button>
+            <div style={{display:'inline-block',marginRight:'12px'}}></div>
+            <Button 
+              type='primary'
+              size='large'
+              onClick={() => navigate(user.fullname ? '/add_remitance' : '/')}
+            >
+              {btnTexts.btnTwoText}
+            </Button>
+        </div>
+      </div>
+      <Row justify='center'>
+        <Col sm={{span:8}} lg={{span:0}} md={{span:0}} style={{padding:'20px 0'}}>
+            <Space>
+              <Button type='primary' onClick={buttonOnclickHandler}>{btnTexts.btnOneText}</Button>
+              <Button 
+                type='primary'
+                onClick={() => navigate(user.fullname ? '/add_remitance' : '/')}
+              >
+                {btnTexts.btnTwoText}
+              </Button>
+            </Space>
+          </Col>
+      </Row>
+  </>
 }
 
 export default Navbar;

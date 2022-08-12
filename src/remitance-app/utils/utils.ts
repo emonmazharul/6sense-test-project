@@ -2,8 +2,6 @@ import React from 'react'
 import { NavigateFunction } from 'react-router-dom';
 import { contextDataInterface, LoginUser, RemitanceHistoryInterface, AlertType, SignUpUser } from "../types/type"
 
-const url:string = "https://api-remitance-app.herokuapp.com";
-
 
 export function formDataMaker(new_remitance_data:RemitanceHistoryInterface):FormData {
   const formData:FormData = new FormData();
@@ -28,13 +26,11 @@ export function numberConverter(credentials:RemitanceHistoryInterface) {
 
 export const loadUserData = async (setUserData:React.Dispatch<React.SetStateAction<contextDataInterface>>):Promise<void> => {
   try {
-    const response = await fetch( url + '/user', {
+    const response = await fetch('/user', {
       credentials:'include',
       headers : {
         'Accept': "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-        'Access-Control-Allow-Origin' : 'https://api-remitance-app.herokuapp.com/',
-        'Access-Control-Allow-Credentials': 'true'
+        "Content-Type": "application/json;charset=UTF-8"
       }
     })
     if(!response.ok) {
@@ -54,14 +50,12 @@ export const loadUserData = async (setUserData:React.Dispatch<React.SetStateActi
 
 export const loadRemitanceData = async (post_remitance_history:React.Dispatch<React.SetStateAction<RemitanceHistoryInterface[]>>):Promise<void> => {
   try {
-    const response = await fetch( url + '/remitance/all_histories', {
+    const response = await fetch( '/remitance/all_histories', {
       credentials:'include',
       headers : {
         'Accept': "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-        'Access-Control-Allow-Origin' : 'https://api-remitance-app.herokuapp.com/',
-        'Access-Control-Allow-Credentials': 'true'
-      },
+        "Content-Type": "application/json;charset=UTF-8"
+      }
     })
     if(!response.ok) {
       const result:RemitanceHistoryInterface[] = await response.json();
@@ -85,15 +79,13 @@ export const loginHandler = async (
 
 ):Promise<void> => {
   try {
-    const response = await fetch( url + '/user/login', {
+    const response = await fetch( '/user/login', {
       method:'POST',
       credentials:'include',
       redirect:'follow',
       headers: {
         'Accept': "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        'Access-Control-Allow-Origin' : 'https://api-remitance-app.herokuapp.com/',
-        'Access-Control-Allow-Credentials': 'true'
       },
       body: JSON.stringify(credentials)
     });
@@ -132,7 +124,7 @@ export const signUpHandler = async (
     navigate:NavigateFunction
   ):Promise<void> => {
   try {
-    const response = await fetch( url + '/user/signup', {
+    const response = await fetch( '/user/signup', {
       method:'POST',
       redirect:'follow',
       headers: {
@@ -167,7 +159,7 @@ export const logoutHandler = async (
     navigate:NavigateFunction
 ):Promise<void> => {
   try {
-    await fetch( url + '/user/logout', {
+    await fetch( '/user/logout', {
       method:'POST',
       redirect:'follow',
       headers: {
@@ -197,7 +189,7 @@ export const remitance_history_handler = async (
     setDataUploadError:React.Dispatch<React.SetStateAction<{message:string;type:AlertType}>>,
   ):Promise<void> => {
   try {
-    const response = await fetch( url + '/remitance/history', {
+    const response = await fetch( '/remitance/history', {
       method:'POST',
       credentials:'include',
       body:formDataMaker(new_remitance_data)

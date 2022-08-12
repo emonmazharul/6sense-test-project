@@ -26,8 +26,7 @@ const Signup:React.FC = () => {
       layout="vertical"
       size="large"
       name="basic"
-      labelCol={{span:8}}
-      wrapperCol={{span:20}}
+      wrapperCol={{lg:{span:16}, xs:{span:10}}}
       initialValues={{remember:true}}
       autoComplete="off"
     >

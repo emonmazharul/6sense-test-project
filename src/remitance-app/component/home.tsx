@@ -18,20 +18,24 @@ const HomePage:React.FC = () => {
     if(isAuthenticated) navigate('/history');
   }, [isAuthenticated])
 
+  useEffect(() => {
+    console.log(window.innerWidth,window.innerHeight);
+  })
+
   const clickHandler = () => {
     const new_selected_elem:string = elemName === 'Sign Up' ? 'Login' : 'Sign Up';
     localStorage.setItem('view', new_selected_elem);
     changeElemName(new_selected_elem);
   }
-  return <Row align="middle" justify="space-around" style={{height:'80vh'}}>
-    <Col span={6} style={{margin:'0 auto'}}>
+  return <Row align="middle" justify="space-around"  className="homepage_container" >
+    <Col xs={{span:20}} lg={{span:6}} className="left_side">
       <Title level={1}>WELCOME TO THE REMITANCE TRACKER</Title>
       <Button type="primary" onClick={clickHandler}>
         {/* things goes down reverse thats whyt showLoginPage false show login text in login */}
         {elemName === 'Sign Up' ? 'Login' : 'Sign Up'}
       </Button>
     </Col>
-    <Col span={8} style={{margin:'0 auto'}}>
+    <Col xs={{span:20}} lg={{span:8}} className="right_side">
     {elemName === 'Sign Up' ? <Signup/> : <Login/>}
     </Col>
     <br/>
